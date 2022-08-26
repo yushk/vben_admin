@@ -90,11 +90,14 @@ export const useUserStore = defineStore({
     ): Promise<GetUserInfoModel | null> {
       try {
         const { goHome = true, mode, ...loginParams } = params;
-        const data = await loginApi(loginParams, mode);
-        const { token } = data;
+        const body = new URLSearchParams();
+        body.append('username', loginParams.username);
+        body.append('password', loginParams.password);
+        const data = await loginApi(body, mode);
+        const { token_type, access_token } = data;
 
         // save token
-        this.setToken(token);
+        this.setToken(`${token_type} ${access_token}`);
         return this.afterLoginAction(goHome);
       } catch (error) {
         return Promise.reject(error);
@@ -104,7 +107,6 @@ export const useUserStore = defineStore({
       if (!this.getToken) return null;
       // get user info
       const userInfo = await this.getUserInfoAction();
-
       const sessionTimeout = this.sessionTimeout;
       if (sessionTimeout) {
         this.setSessionTimeout(false);
@@ -125,12 +127,13 @@ export const useUserStore = defineStore({
     async getUserInfoAction(): Promise<UserInfo | null> {
       if (!this.getToken) return null;
       const userInfo = await getUserInfo();
-      const { roles = [] } = userInfo;
+      const { role } = userInfo;
+      const roles = [role];
       if (isArray(roles)) {
-        const roleList = roles.map((item) => item.value) as RoleEnum[];
+        const roleList = roles.map((item) => item) as RoleEnum[];
         this.setRoleList(roleList);
       } else {
-        userInfo.roles = [];
+        userInfo.role = '';
         this.setRoleList([]);
       }
       this.setUserInfo(userInfo);
