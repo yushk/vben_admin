@@ -3,13 +3,17 @@ import { LoginResultModel, GetUserInfoModel } from './model/userModel';
 
 import { ErrorMessageMode } from '/#/axios';
 
-enum Api {
-  Login = '/v1/login',
-  Logout = 'v1/logout',
-  GetUserInfo = '/v1/user',
-  GetPermCode = '/getPermCode',
-  TestRetry = '/testRetry',
-}
+const Api = {
+  Login: '/v1/login',
+  Logout: 'v1/logout',
+  GetUserInfo: '/v1/user',
+  GetUsers: '/v1/users',
+  UpdateUser: (id) => `/v1/user${id}`,
+  CreateUser: '/v1/user',
+  DeleteUser: (id) => `/v1/user${id}`,
+  GetPermCode: '/getPermCode',
+  TestRetry: '/testRetry',
+};
 
 /**
  * @description: user login api
