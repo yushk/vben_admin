@@ -1,8 +1,8 @@
 import { BasicPageParams, BasicFetchResult } from '/@/api/model/baseModel';
 
 export type AccountParams = BasicPageParams & {
-  account?: string;
-  nickname?: string;
+  name?: string;
+  phone?: string;
 };
 
 export type RoleParams = {

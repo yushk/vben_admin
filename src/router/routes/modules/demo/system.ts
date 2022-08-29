@@ -20,6 +20,7 @@ const system: AppRouteModule = {
       meta: {
         title: t('routes.demo.system.account'),
         ignoreKeepAlive: false,
+        roles: ['root'],
       },
       component: () => import('/@/views/demo/system/account/index.vue'),
     },
@@ -35,43 +36,43 @@ const system: AppRouteModule = {
       },
       component: () => import('/@/views/demo/system/account/AccountDetail.vue'),
     },
-    {
-      path: 'role',
-      name: 'RoleManagement',
-      meta: {
-        title: t('routes.demo.system.role'),
-        ignoreKeepAlive: true,
-      },
-      component: () => import('/@/views/demo/system/role/index.vue'),
-    },
-
-    {
-      path: 'menu',
-      name: 'MenuManagement',
-      meta: {
-        title: t('routes.demo.system.menu'),
-        ignoreKeepAlive: true,
-      },
-      component: () => import('/@/views/demo/system/menu/index.vue'),
-    },
+    // {
+    //   path: 'role',
+    //   name: 'RoleManagement',
+    //   meta: {
+    //     title: t('routes.demo.system.role'),
+    //     ignoreKeepAlive: true,
+    //   },
+    //   component: () => import('/@/views/demo/system/role/index.vue'),
+    // },
+    // {
+    //   path: 'menu',
+    //   name: 'MenuManagement',
+    //   meta: {
+    //     title: t('routes.demo.system.menu'),
+    //     ignoreKeepAlive: true,
+    //   },
+    //   component: () => import('/@/views/demo/system/menu/index.vue'),
+    // },
     {
       path: 'dept',
       name: 'DeptManagement',
       meta: {
         title: t('routes.demo.system.dept'),
         ignoreKeepAlive: true,
+        roles: ['root'],
       },
       component: () => import('/@/views/demo/system/dept/index.vue'),
     },
-    {
-      path: 'changePassword',
-      name: 'ChangePassword',
-      meta: {
-        title: t('routes.demo.system.password'),
-        ignoreKeepAlive: true,
-      },
-      component: () => import('/@/views/demo/system/password/index.vue'),
-    },
+    // {
+    //   path: 'changePassword',
+    //   name: 'ChangePassword',
+    //   meta: {
+    //     title: t('routes.demo.system.password'),
+    //     ignoreKeepAlive: true,
+    //   },
+    //   component: () => import('/@/views/demo/system/password/index.vue'),
+    // },
   ],
 };
 

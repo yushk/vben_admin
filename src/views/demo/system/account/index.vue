@@ -41,7 +41,7 @@
   import { defineComponent, reactive } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getAccountList } from '/@/api/demo/system';
+  import { getAccountList, UpdateUser, DeleteUser, CreateUser } from '/@/api/demo/system';
   import { PageWrapper } from '/@/components/Page';
   import DeptTree from './DeptTree.vue';
 
@@ -50,16 +50,18 @@
 
   import { columns, searchFormSchema } from './account.data';
   import { useGo } from '/@/hooks/web/usePage';
+  import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
     name: 'AccountManagement',
     components: { BasicTable, PageWrapper, DeptTree, AccountModal, TableAction },
     setup() {
+      const { createMessage } = useMessage();
       const go = useGo();
       const [registerModal, { openModal }] = useModal();
       const searchInfo = reactive<Recordable>({});
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
-        title: '账号列表',
+        title: '用户列表',
         api: getAccountList,
         rowKey: 'id',
         columns,
@@ -73,7 +75,13 @@
         bordered: true,
         handleSearchInfoFn(info) {
           console.log('handleSearchInfoFn', info);
-          return info;
+          let obj = {};
+          for (let key in info) {
+            if (info[key]) {
+              obj[key] = { $regex: info[key], $options: 'i' };
+            }
+          }
+          return { query: JSON.stringify(obj) };
         },
         actionColumn: {
           width: 120,
@@ -99,16 +107,29 @@
 
       function handleDelete(record: Recordable) {
         console.log(record);
+        DeleteUser(record.id).then(() => {
+          createMessage.success('删除成功');
+          reload();
+        });
       }
 
       function handleSuccess({ isUpdate, values }) {
         if (isUpdate) {
           // 演示不刷新表格直接更新内部数据。
           // 注意：updateTableDataRecord要求表格的rowKey属性为string并且存在于每一行的record的keys中
-          const result = updateTableDataRecord(values.id, values);
-          console.log(result);
+          let id = values.id;
+          delete values.id;
+          UpdateUser(id, values).then(() => {
+            createMessage.success('更新成功');
+            const result = updateTableDataRecord(id, values);
+            console.log(result);
+          });
         } else {
-          reload();
+          delete values.id;
+          CreateUser(values).then(() => {
+            createMessage.success('添加成功');
+            reload();
+          });
         }
       }
 

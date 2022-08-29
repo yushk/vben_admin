@@ -1,7 +1,15 @@
 export interface GetAccountInfoModel {
-  email: string;
+  id: string;
   name: string;
-  introduction: string;
+  ps: string;
+  email: string;
   phone: string;
-  address: string;
+  role: string;
+}
+export interface UpdateAccountInfoModel {
+  name: string;
+  ps: string;
+  email: string;
+  phone: string;
+  role: string;
 }

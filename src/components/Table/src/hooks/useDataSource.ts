@@ -87,6 +87,7 @@ export function useDataSource(
       searchState.filterInfo = filterInfo;
       params.filterInfo = filterInfo;
     }
+    debugger;
     fetch(params);
   }
 
@@ -265,7 +266,7 @@ export function useDataSource(
       if ((isBoolean(pagination) && !pagination) || isBoolean(getPaginationInfo)) {
         pageParams = {};
       } else {
-        pageParams[pageField] = (opt && opt.page) || current;
+        pageParams[pageField] = (((opt && opt.page) || current) - 1) * pageSize;
         pageParams[sizeField] = pageSize;
       }
 
@@ -285,7 +286,6 @@ export function useDataSource(
       if (beforeFetch && isFunction(beforeFetch)) {
         params = (await beforeFetch(params)) || params;
       }
-
       const res = await api(params);
       rawDataSourceRef.value = res;
 
