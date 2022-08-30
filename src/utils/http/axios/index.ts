@@ -189,7 +189,6 @@ const transform: AxiosTransform = {
         }
         return Promise.reject(error);
       }
-      debugger;
     } catch (error) {
       throw new Error(error as unknown as string);
     }

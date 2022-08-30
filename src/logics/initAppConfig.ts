@@ -26,7 +26,9 @@ import { ThemeEnum } from '/@/enums/appEnum';
 export function initAppConfigStore() {
   const localeStore = useLocaleStore();
   const appStore = useAppStore();
+  console.log('projectSetting', projectSetting);
   let projCfg: ProjectConfig = Persistent.getLocal(PROJ_CFG_KEY) as ProjectConfig;
+  console.log('projCfg', projCfg);
   projCfg = deepMerge(projectSetting, projCfg || {});
   const darkMode = appStore.getDarkMode;
   const {

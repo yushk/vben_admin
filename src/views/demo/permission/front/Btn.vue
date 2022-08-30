@@ -18,8 +18,8 @@
         <a-button @click="changeRole(RoleEnum.SUPER)" :type="isSuper ? 'primary' : 'default'">
           {{ RoleEnum.SUPER }}
         </a-button>
-        <a-button @click="changeRole(RoleEnum.TEST)" :type="isTest ? 'primary' : 'default'">
-          {{ RoleEnum.TEST }}
+        <a-button @click="changeRole(RoleEnum.TEACHER)" :type="isTest ? 'primary' : 'default'">
+          {{ RoleEnum.TEACHER }}
         </a-button>
       </Space>
     </div>
@@ -28,11 +28,11 @@
       <a-button type="primary" class="mx-4"> 拥有super角色权限可见 </a-button>
     </Authority>
 
-    <Authority :value="RoleEnum.TEST">
+    <Authority :value="RoleEnum.TEACHER">
       <a-button color="success" class="mx-4"> 拥有test角色权限可见 </a-button>
     </Authority>
 
-    <Authority :value="[RoleEnum.TEST, RoleEnum.SUPER]">
+    <Authority :value="[RoleEnum.TEACHER, RoleEnum.SUPER]">
       <a-button color="error" class="mx-4"> 拥有[test,super]角色权限可见 </a-button>
     </Authority>
 
@@ -41,20 +41,22 @@
       拥有super角色权限可见
     </a-button>
 
-    <a-button v-if="hasPermission(RoleEnum.TEST)" color="success" class="mx-4">
+    <a-button v-if="hasPermission(RoleEnum.TEACHER)" color="success" class="mx-4">
       拥有test角色权限可见
     </a-button>
 
-    <a-button v-if="hasPermission([RoleEnum.TEST, RoleEnum.SUPER])" color="error" class="mx-4">
+    <a-button v-if="hasPermission([RoleEnum.TEACHER, RoleEnum.SUPER])" color="error" class="mx-4">
       拥有[test,super]角色权限可见
     </a-button>
 
     <Divider>指令方式方式判断权限(该方式不能动态修改权限.)</Divider>
     <a-button v-auth="RoleEnum.SUPER" type="primary" class="mx-4"> 拥有super角色权限可见 </a-button>
 
-    <a-button v-auth="RoleEnum.TEST" color="success" class="mx-4"> 拥有test角色权限可见 </a-button>
+    <a-button v-auth="RoleEnum.TEACHER" color="success" class="mx-4">
+      拥有test角色权限可见
+    </a-button>
 
-    <a-button v-auth="[RoleEnum.TEST, RoleEnum.SUPER]" color="error" class="mx-4">
+    <a-button v-auth="[RoleEnum.TEACHER, RoleEnum.SUPER]" color="error" class="mx-4">
       拥有[test,super]角色权限可见
     </a-button>
   </PageWrapper>
@@ -79,7 +81,7 @@
         userStore,
         RoleEnum,
         isSuper: computed(() => userStore.getRoleList.includes(RoleEnum.SUPER)),
-        isTest: computed(() => userStore.getRoleList.includes(RoleEnum.TEST)),
+        isTest: computed(() => userStore.getRoleList.includes(RoleEnum.TEACHER)),
         changeRole,
         hasPermission,
       };

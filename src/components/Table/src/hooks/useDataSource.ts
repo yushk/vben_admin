@@ -87,7 +87,6 @@ export function useDataSource(
       searchState.filterInfo = filterInfo;
       params.filterInfo = filterInfo;
     }
-    debugger;
     fetch(params);
   }
 

@@ -144,6 +144,7 @@
 
       const getShowSetting = computed(() => {
         if (!unref(getShowSettingButton)) {
+          debugger;
           return false;
         }
         const settingButtonPosition = unref(getSettingButtonPosition);
