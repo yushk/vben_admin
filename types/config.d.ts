@@ -79,6 +79,16 @@ export interface TransitionSetting {
   // Whether to open the top progress bar
   openNProgress: boolean;
 }
+export interface ThirtySetting {
+  phoneLogin: boolean;
+  qrLogin: boolean;
+  thirtyLogin: boolean;
+  githubLogin: boolean;
+  wxLogin: boolean;
+  zfbLogin: boolean;
+  googleLogin: boolean;
+  fsLogin: boolean;
+}
 
 export interface ProjectConfig {
   // Storage location of permission related information
@@ -116,6 +126,7 @@ export interface ProjectConfig {
   multiTabsSetting: MultiTabsSetting;
   // Animation configuration
   transitionSetting: TransitionSetting;
+  LoginSetting: ThirtySetting;
   // pageLayout whether to enable keep-alive
   openKeepAlive: boolean;
   // Lock screen time

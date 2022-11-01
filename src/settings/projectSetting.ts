@@ -149,7 +149,16 @@ const setting: ProjectConfig = {
     // Whether to open the top progress bar
     openNProgress: false,
   },
-
+  LoginSetting: {
+    phoneLogin: false,
+    qrLogin: false,
+    thirtyLogin: true,
+    githubLogin: false,
+    wxLogin: true,
+    zfbLogin: true,
+    googleLogin: false,
+    fsLogin: false,
+  },
   // Whether to enable KeepAlive cache is best to close during development, otherwise the cache needs to be cleared every time
   openKeepAlive: true,
 

@@ -4,6 +4,7 @@ import type {
   MenuSetting,
   TransitionSetting,
   MultiTabsSetting,
+  ThirtySetting,
 } from '/#/config';
 import type { BeforeMiniState } from '/#/store';
 
@@ -62,6 +63,9 @@ export const useAppStore = defineStore({
     },
     getMultiTabsSetting(): MultiTabsSetting {
       return this.getProjectConfig.multiTabsSetting;
+    },
+    getLoginSetting(): ThirtySetting {
+      return this.getProjectConfig.LoginSetting;
     },
   },
   actions: {

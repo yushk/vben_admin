@@ -49,13 +49,13 @@
         {{ t('sys.login.loginButton') }}
       </Button>
     </FormItem>
-    <ARow class="enter-x" v-if="0">
-      <ACol :md="8" :xs="24">
+    <ARow class="enter-x">
+      <ACol :md="8" :xs="24" v-if="LoginSetting.phoneLogin">
         <Button block @click="setLoginState(LoginStateEnum.MOBILE)">
           {{ t('sys.login.mobileSignInFormTitle') }}
         </Button>
       </ACol>
-      <ACol :md="8" :xs="24" class="!my-2 !md:my-0 xs:mx-0 md:mx-2">
+      <ACol :md="8" :xs="24" v-if="LoginSetting.qrLogin" class="!my-2 !md:my-0 xs:mx-0 md:mx-2">
         <Button block @click="setLoginState(LoginStateEnum.QR_CODE)">
           {{ t('sys.login.qrSignInFormTitle') }}
         </Button>
@@ -67,14 +67,19 @@
       </ACol>
     </ARow>
 
-    <Divider v-if="0" class="enter-x">{{ t('sys.login.otherSignIn') }}</Divider>
-
-    <div v-if="0" class="flex justify-evenly enter-x" :class="`${prefixCls}-sign-in-way`">
-      <GithubFilled />
-      <WechatFilled />
-      <AlipayCircleFilled />
-      <GoogleCircleFilled />
-      <TwitterCircleFilled />
+    <Divider v-if="LoginSetting.thirtyLogin" class="enter-x">{{
+      t('sys.login.otherSignIn')
+    }}</Divider>
+    <div
+      v-if="LoginSetting.thirtyLogin"
+      class="flex justify-evenly enter-x"
+      :class="`${prefixCls}-sign-in-way`"
+    >
+      <GithubFilled v-if="LoginSetting.githubLogin" />
+      <WechatFilled v-if="LoginSetting.wxLogin" />
+      <AlipayCircleFilled v-if="LoginSetting.zfbLogin" />
+      <GoogleCircleFilled v-if="LoginSetting.googleLogin" />
+      <TwitterCircleFilled v-if="LoginSetting.fsLogin" />
     </div>
   </Form>
 </template>
@@ -97,8 +102,10 @@
   import { useUserStore } from '/@/store/modules/user';
   import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from './useLogin';
   import { useDesign } from '/@/hooks/web/useDesign';
+  import { useAppStore } from '/@/store/modules/app';
   //import { onKeyStroke } from '@vueuse/core';
-
+  const appStore = useAppStore();
+  const LoginSetting = appStore.getLoginSetting;
   const ACol = Col;
   const ARow = Row;
   const FormItem = Form.Item;
